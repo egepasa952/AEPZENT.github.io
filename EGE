@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Asal Çarpan Bulucu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f4f4f4;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Asal Çarpanlara Ayırma</h1>
+    <p>Bir sayı girin ve asal çarpanlarını görün:</p>
+
+    <input type="number" id="numberInput" placeholder="Bir sayı girin">
+    <button onclick="findPrimeFactors()">Hesapla</button>
+
+    <div id="result"></div>
+
+    <script>
+        function findPrimeFactors() {
+            let num = parseInt(document.getElementById("numberInput").value);
+            let factors = [];
+            let originalNum = num;
+
+            if (isNaN(num) || num < 2) {
+                document.getElementById("result").innerText = "Lütfen 2 veya daha büyük bir tam sayı girin.";
+                return;
+            }
+
+            // 2'ye bölünebildiği kadar böl
+            while (num % 2 === 0) {
+                factors.push(2);
+                num /= 2;
+            }
+
+            // Tek sayılarla devam et
+            for (let i = 3; i <= Math.sqrt(num); i += 2) {
+                while (num % i === 0) {
+                    factors.push(i);
+                    num /= i;
+                }
+            }
+
+            // Son kalan asal sayı
+            if (num > 2) {
+                factors.push(num);
+            }
+
+            document.getElementById("result").innerText =
+                `${originalNum} sayısının asal çarpanları: ${factors.join(" × ")}`;
+        }
+    </script>
+
+</body>
+</html>
+
+https:
